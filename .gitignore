@@ -1,0 +1,11 @@
+# .gitignore
+*.pem
+*.key
+*.pub
+*.crt
+*.cer
+*.der
+k8s_key
+k8s_key.pub
+kube_cicd.pub
+
