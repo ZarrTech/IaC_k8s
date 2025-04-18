@@ -9,11 +9,15 @@ variable "instance_type" {
 
 variable "bastion_instance_type" {
   description = "the time of instance to launch"
-  default = "t2.micro"
+  default     = "t2.micro"
 }
 
 variable "region" {
   description = "The region to launch the instance in"
   default     = "us-east-1"
 
+}
+
+variable "az_index" {
+  default = 0
 }

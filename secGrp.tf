@@ -1,15 +1,18 @@
 resource "aws_security_group" "k8s-sg" {
   name        = "k8s-sg"
-  description = "k8s-sg"
+  description = "Security group for Kubernetes cluster"
+  vpc_id      = module.vpc.vpc_id # Make sure 'module.vpc.vpc_id' is defined
+
   tags = {
-    Name = "allow_tls"
-    Name= "allow_icmp"
+    Name        = "k8s-sg"
+    Environment = "dev"
+    Project     = "k8s"
   }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh_myIP" {
   security_group_id = aws_security_group.k8s-sg.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = "192.168.56.4/24"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
@@ -23,14 +26,13 @@ resource "aws_vpc_security_group_ingress_rule" "allow_http" {
   to_port           = 80
 }
 
-# resource "aws_vpc_security_group_ingress_rule" "allow_icmp" {
-#   security_group_id = aws_security_group.k8s-sg.id
-#   ip_protocol       = "icmp"
-#   from_port         = -1  # All ICMP types
-#   to_port           = -1  # All ICMP codes
-#   cidr_ipv4         = "10.0.0.0/16"  # Restrict to your VPC (recommended)
-#   # cidr_ipv4       = "0.0.0.0/0"    # Uncomment to allow public ping (insecure!)
-# }
+resource "aws_vpc_security_group_ingress_rule" "allow_icmp" {
+  security_group_id = aws_security_group.k8s-sg.id
+  ip_protocol       = "icmp"
+  from_port         = -1                # All ICMP types
+  to_port           = -1                # All ICMP codes
+  cidr_ipv4         = "192.168.56.4/24" # Restrict to your VPC (recommended)
+}
 
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_outbound_traffic_ipv4" {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ID1="i-0f430daf4ca8c86ed"
-ID2="i-0885fcad17bf238ae"
+ID1="i-0a00ae61aa26a6cb4"
+ID2="i-0dccb2850efc623ac"
 ACTION=$1
 
 # Check if AWS CLI can connect to the endpoint

@@ -5,6 +5,7 @@
 *.crt
 *.cer
 *.der
+.terraform/
 k8s_key
 k8s_key.pub
 kube_cicd.pub
